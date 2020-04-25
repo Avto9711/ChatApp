@@ -26,6 +26,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using ChatApp.Model.Services;
 using ChatApp.Api.Extensions;
+using NServiceBus;
+using ChatApp.Messages.Commands;
 
 namespace ChatApp.Api
 {
@@ -119,16 +121,6 @@ namespace ChatApp.Api
                 o.Lockout.MaxFailedAccessAttempts = 5;
             }).AddEntityFrameworkStores<ChatAppDbContext>().AddDefaultTokenProviders();
 
-            //services.ConfigureApplicationCookie(options =>
-            //{
-            //    options.Events.OnRedirectToLogin = context =>
-            //    {
-            //        context.Response.Headers["Location"] = context.RedirectUri;
-            //        context.Response.StatusCode = 401;
-            //        return Task.CompletedTask;
-            //    };
-            //});
-
             var tokenConfig = Configuration.GetSection("TokenConfig").Get<TokenConfig>();
 
             services.AddAuthentication(x =>
@@ -162,6 +154,10 @@ namespace ChatApp.Api
             });
             #endregion
 
+
+            #region NServiceBus
+             services.AddNServiceBus(Configuration);
+            #endregion
             Dependency.ServiceProvider = services.BuildServiceProvider();
         }
 

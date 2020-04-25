@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using ChatApp.Messages.Commands;
 using Microsoft.AspNetCore.Mvc;
+using NServiceBus;
 
 namespace ChatApp.Api.Controllers
 {
@@ -12,16 +14,18 @@ namespace ChatApp.Api.Controllers
     public class ValuesController : ControllerBase
     {
         private readonly IMapper _mapper;
-
-        public ValuesController(IMapper mapper)
+        private readonly IEndpointInstance _bus;
+        public ValuesController(IMapper mapper, IEndpointInstance bus)
         {
             _mapper = mapper;
+            _bus = bus;
         }
 
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public async Task<ActionResult<IEnumerable<string>>> Get()
         {
+            await _bus.Send(new RequestAaplCsv { Id = Guid.NewGuid().ToString(), BotMessage = "asd" });
             return new string[] { "value1", "value2" };
         }
 
