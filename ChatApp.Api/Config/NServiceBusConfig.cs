@@ -22,25 +22,6 @@ namespace ChatApp.Api.Config
 
             transport.Routing().RouteToEndpoint(typeof(RequestAaplCsv), nserviceBusConfig.DestinationName);
 
-
-
-            //        var transport = endpointConfiguration
-            //.UseTransport<SqlServerTransport>()
-            //.ConnectionString(connection)
-            //.DefaultSchema("dbo");
-
-            //        transport
-            //            .Routing()
-            //            .RouteToEndpoint(typeof(ReponseAaplCsv), "ChatAppApi");
-
-            //        var persistence = endpointConfiguration.UsePersistence<SqlPersistence>();
-            //        var subscriptions = persistence.SubscriptionSettings();
-            //        subscriptions.CacheFor(TimeSpan.FromMinutes(1));
-            //        var dialect = persistence.SqlDialect<SqlDialect.MsSqlServer>();
-            //        persistence.ConnectionBuilder(
-            //            connectionBuilder: () => new SqlConnection(connection));
-            //        endpointConfiguration.EnableInstallers();
-
             endpointConfiguration.EnableInstallers();
 
             var instance = Endpoint.Start(endpointConfiguration).Result;
