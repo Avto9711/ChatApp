@@ -1,11 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ChatApp.Model.Entities
+namespace ChatApp.Bl.Dto
 {
-    public class UserApplication: IdentityUser
+    public class UserApplicationDto
     {
         public string Name { get; set; }
         public string ConnectionId { get; set; }

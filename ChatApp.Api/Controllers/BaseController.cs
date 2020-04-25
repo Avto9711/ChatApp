@@ -24,6 +24,7 @@ namespace ChatApp.Api.Controllers
         UnprocessableEntityObjectResult UnprocessableEntity(object error);
     }
 
+    [Authorize]
     [Produces("application/json")]
     [Route("api/[controller]")]
     public class BaseController<TEntity, TEntityDto> : ControllerBase, IBaseController

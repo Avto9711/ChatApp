@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,12 +7,15 @@ using System.Threading.Tasks;
 using ChatApp.Core.BaseModel.BaseEntity;
 using ChatApp.Core.User;
 using ChatApp.Model.Extensions;
+using ChatApp.Model.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace ChatApp.Model.Contexts
 {
-    public abstract class BaseDbContext : DbContext
+    public abstract class BaseDbContext : IdentityDbContext<UserApplication>
     {
         public BaseDbContext(DbContextOptions options) : base(options) { }
+
         private void SetAuditEntities()
         {
             foreach (var entry in ChangeTracker.Entries<IBaseEntity>())

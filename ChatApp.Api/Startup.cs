@@ -18,12 +18,19 @@ using FluentValidation.AspNetCore;
 using ChatApp.Bl.Validators;
 using ChatApp.Api.Config;
 using ChatApp.Api.Hubs;
+using ChatApp.Model.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Threading.Tasks;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using ChatApp.Model.Services;
+using ChatApp.Api.Extensions;
 
 namespace ChatApp.Api
 {
     public class Startup
     {
-        private AzureAdB2C AzureB2CSettings { get; set; }
 
         public Startup(IConfiguration configuration)
         {
@@ -87,14 +94,62 @@ namespace ChatApp.Api
             #endregion
 
 
+
             #region SignalR
-                services.AddSignalR();
+            services.AddSignalR();
             #endregion
             #region Adding Settings Sections
             services.Configure<ConnectionStrings>(Configuration.GetSection("ConnectionStrings"));
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
             services.Configure<SerilogSettings>(Configuration.GetSection("SerilogSettings"));
-            services.Configure<AzureAdB2C>(Configuration.GetSection("AzureAdB2C"));
+            services.Configure<TokenConfig>(Configuration.GetSection("TokenConfig"));
+            #endregion
+
+
+            #region Adding Db Context
+
+            services.AddIdentity<UserApplication, IdentityRole>(o => {
+                o.User.RequireUniqueEmail = false;
+                o.Password.RequireDigit = false;
+                o.Password.RequireLowercase = false;
+                o.Password.RequireUppercase = false;
+                o.Password.RequireNonAlphanumeric = false;
+                o.Password.RequiredLength = 5;
+                o.Lockout.DefaultLockoutTimeSpan = new System.TimeSpan(0, 5, 0);
+                o.Lockout.MaxFailedAccessAttempts = 5;
+            }).AddEntityFrameworkStores<ChatAppDbContext>().AddDefaultTokenProviders();
+
+            //services.ConfigureApplicationCookie(options =>
+            //{
+            //    options.Events.OnRedirectToLogin = context =>
+            //    {
+            //        context.Response.Headers["Location"] = context.RedirectUri;
+            //        context.Response.StatusCode = 401;
+            //        return Task.CompletedTask;
+            //    };
+            //});
+
+            var tokenConfig = Configuration.GetSection("TokenConfig").Get<TokenConfig>();
+
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(tokenConfig.Secret)),
+                    ValidIssuer = tokenConfig.Issuer,
+                    ValidAudience = tokenConfig.Audience,
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
+            services.AddAuthorization();
             #endregion
 
             #region Adding External Libs
@@ -129,14 +184,18 @@ namespace ChatApp.Api
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
 
+            app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseCors("AllowAllPolicy");
+            app.CreateUsers();
             app.UseSignalR(routes =>
             {
                 routes.MapHub<ChatAppHub>("/chatHub");
             });
             app.UseMvc();
         }
+
+
 
     }
 }

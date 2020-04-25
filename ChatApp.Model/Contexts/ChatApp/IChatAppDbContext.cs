@@ -13,7 +13,7 @@ namespace ChatApp.Model.Contexts.ChatApp
     public interface IChatAppDbContext : IDisposable
     {
         DatabaseFacade Database { get; }
-        DbSet<T> GetDbSet<T>() where T : class, IBaseEntity;
+        DbSet<T> GetDbSet<T>() where T : class;
         int SaveChanges();
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken));
         EntityEntry<T> Entry<T>(T entity) where T : class;
