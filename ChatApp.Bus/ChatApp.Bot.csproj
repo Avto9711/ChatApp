@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ChatApp.Core\ChatApp.Core.csproj" />
     <ProjectReference Include="..\ChatApp.Messages\ChatApp.BotCommands.csproj" />
   </ItemGroup>
 

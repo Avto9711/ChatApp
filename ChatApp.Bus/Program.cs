@@ -1,4 +1,5 @@
-﻿using ChatApp.Messages.Commands;
+﻿using ChatApp.Core.Models;
+using ChatApp.Messages.Commands;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using NServiceBus;
@@ -19,7 +20,9 @@ namespace ChatApp.Bus
             Console.Title = "ChatAppBus";
 
             appConfig = GetConfigurationRoot();
-            var endpointConfig = GetEndpointConfiguration("ChatAppBus");
+            var nsbconfig = appConfig.GetSection("NServiceBusConfig").Get<NServiceBusAppSettings>();
+
+            var endpointConfig = GetEndpointConfiguration(nsbconfig.EndpointName, nsbconfig.NServiceBusConnectionString, nsbconfig.DestinationName);
 
             var endpointInstance = await Endpoint.Start(endpointConfig).ConfigureAwait(false);
 
@@ -37,17 +40,16 @@ namespace ChatApp.Bus
 
             return builder.Build();
         }
-        static EndpointConfiguration GetEndpointConfiguration(string endpointname)
+        static EndpointConfiguration GetEndpointConfiguration(string endpointName, string connectionString, string destinationName)
         {
-            var connection = appConfig.GetConnectionString("DefaultConnection");
-            var endpointConfiguration = new EndpointConfiguration(endpointname);
+            var endpointConfiguration = new EndpointConfiguration(endpointName);
             var transport = endpointConfiguration
                 .UseTransport<SqlServerTransport>()
-                .ConnectionString(connection);
+                .ConnectionString(connectionString);
 
             transport
                 .Routing()
-                .RouteToEndpoint(typeof(ReponseStockCsv), "ChatAppApi");
+                .RouteToEndpoint(typeof(ReponseStockCsv), destinationName);
 
             endpointConfiguration.EnableInstallers();
             return endpointConfiguration;
