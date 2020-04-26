@@ -7,12 +7,12 @@ namespace ChatApp.Bot.Models
     public class StockCsv
     {
         public string Symbol { get; set; }
-        public DateTime Date { get; set; }
-        public TimeSpan Time { get; set; }
-        public double Open { get; set; }
-        public double High { get; set; }
-        public double Low { get; set; }
-        public double Close { get; set; }
-        public int Volume { get; set; }
+        public string Date { get; set; }
+        public string Time { get; set; }
+        public string Open { get; set; }
+        public string High { get; set; }
+        public string Low { get; set; }
+        public string Close { get; set; }
+        public string Volume { get; set; }
     }
 }

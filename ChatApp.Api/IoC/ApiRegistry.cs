@@ -1,4 +1,5 @@
 ﻿using ChatApp.Api.Services;
+using ChatApp.Api.Services.Chat;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ namespace ChatApp.Api.IoC
         public static void AddApiRegistry(this IServiceCollection services)
         {
             services.AddTransient<IJwtService, JwtService>();
+            services.AddTransient<IChatService, ChatService>();
         }
     }
 }

@@ -1,8 +1,13 @@
-﻿using ChatApp.Core.Models;
+﻿using ChatApp.Api.Hubs;
+using ChatApp.Api.Services;
+using ChatApp.Core.Models;
 using ChatApp.Messages.Commands;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NServiceBus;
+using NServiceBus.ObjectBuilder.MSDependencyInjection;
+using StructureMap;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,10 +27,14 @@ namespace ChatApp.Api.Config
 
             transport.Routing().RouteToEndpoint(typeof(RequestStockCSV), nserviceBusConfig.DestinationName);
 
-            endpointConfiguration.EnableInstallers();
+            endpointConfiguration.UseContainer<StructureMapBuilder>(customizations => customizations.ExistingContainer(DependencyService.Container));
 
-            var instance = Endpoint.Start(endpointConfiguration).Result;
-            services.AddSingleton((x) => instance);
+            services.AddSingleton<IMessageSession>(x => {
+                return Endpoint.Start(endpointConfiguration)
+                .GetAwaiter()
+                .GetResult();
+               }
+             );
         }
     }
 }

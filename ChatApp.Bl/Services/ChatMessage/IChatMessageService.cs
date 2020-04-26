@@ -9,6 +9,5 @@ namespace ChatApp.Bl.Services.ChatMessage
     public interface IChatMessageService
     {
         Task SaveMessage(ChatRoomMessageHubDto message);
-        ChatRoomMessageResponseHubDto ProcessMessage(ChatRoomMessageHubDto message);
     }
 }

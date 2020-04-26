@@ -32,7 +32,7 @@ namespace ChatApp.Api.Controllers
         [HttpGet("{id}/Messages")]
         public IActionResult Messages(int id)
         {
-            var messages = _messagesRepo.WhereAsNoTracking(x => x.ChatRoomId == id).OrderBy(x => x.MessageTime);
+            var messages = _messagesRepo.WhereAsNoTracking(x => x.ChatRoomId == id).OrderBy(x => x.MessageTime).Take(50);
             var dto = _mapper.Map<List<ChatRoomMessageDto>>(messages);
             return Ok(dto);
         }

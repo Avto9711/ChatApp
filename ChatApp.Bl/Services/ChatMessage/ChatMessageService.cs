@@ -16,11 +16,13 @@ namespace ChatApp.Bl.Services.ChatMessage
         private readonly IRepository<ChatRoomMessage> _messageRepo;
         private readonly IRepository<ChatRoom> _chatRoomRepo;
         private readonly IUnitOfWork<IChatAppDbContext> _uow;
-        public ChatMessageService(IUnitOfWork<IChatAppDbContext> uow)
+
+        public ChatMessageService(IUnitOfWork<IChatAppDbContext> uow )
         {
             _messageRepo = uow.GetRepository<ChatRoomMessage>();
             _chatRoomRepo = uow.GetRepository<ChatRoom>();
             _uow = uow;
+
         }
 
         public ChatRoomMessageResponseHubDto ProcessMessage(ChatRoomMessageHubDto message)

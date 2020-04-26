@@ -39,15 +39,19 @@ namespace ChatApp.Bus.Handlers
                 using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
                 {
                         var lin = await response.Content.ReadAsStringAsync();
-                        var x = stream;
-                        var y = reader;
+                        //var x = stream;
+                        //var y = reader;
                         //reader.Re
                         csv.Configuration.RegisterClassMap<StockCsvMap>();
                         csv.Configuration.Delimiter = ",";
                         var stock = csv.GetRecords<StockCsv>()
                             .ToList().FirstOrDefault();
 
-                        var botMessage = string.Format("{0} quote is ${1} per share", message.Stock.ToUpper(), stock.Close);
+                    var botMessage = string.Format("sorry we could not find the quote for the stock '{0}'", message.Stock);
+
+                    if (stock.Close != "N/D")
+                         botMessage = string.Format("{0} quote is ${1} per share", message.Stock.ToUpper(), stock.Close);
+
 
                         await context.Send(new ReponseStockCsv { Id = Guid.NewGuid().ToString(), BotMessage = botMessage, ChatRoomId = message.ChatRoomId });
                 }

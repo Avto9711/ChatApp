@@ -28,6 +28,7 @@ using ChatApp.Model.Services;
 using ChatApp.Api.Extensions;
 using NServiceBus;
 using ChatApp.Messages.Commands;
+using StructureMap;
 
 namespace ChatApp.Api
 {
@@ -42,12 +43,8 @@ namespace ChatApp.Api
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            #region AuthConfig
-
-            #endregion
-
 
             #region CORS
             var appSettings = Configuration.GetSection("AppSettings").Get<AppSettings>();
@@ -61,10 +58,15 @@ namespace ChatApp.Api
                                  .AllowAnyMethod()
                                  .AllowCredentials()
                                  .AllowAnyOrigin()
-                                .WithOrigins(appSettings.ClientUrls)
-                                 ;
+                                .WithOrigins(appSettings.ClientUrls);
                       });
             });
+            #endregion
+
+
+
+            #region SignalR
+            services.AddSignalR();
             #endregion
 
             #region IoC Registry
@@ -97,9 +99,6 @@ namespace ChatApp.Api
 
 
 
-            #region SignalR
-            services.AddSignalR();
-            #endregion
             #region Adding Settings Sections
             services.Configure<ConnectionStrings>(Configuration.GetSection("ConnectionStrings"));
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
@@ -108,7 +107,7 @@ namespace ChatApp.Api
             #endregion
 
 
-            #region Adding Db Context
+            #region Adding Db Context And Auth 
 
             services.AddIdentity<UserApplication, IdentityRole>(o => {
                 o.User.RequireUniqueEmail = false;
@@ -158,7 +157,7 @@ namespace ChatApp.Api
             #region NServiceBus
              services.AddNServiceBus(Configuration);
             #endregion
-            Dependency.ServiceProvider = services.BuildServiceProvider();
+            return services.ConfigureIoC();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
