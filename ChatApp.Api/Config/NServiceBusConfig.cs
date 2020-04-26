@@ -20,7 +20,7 @@ namespace ChatApp.Api.Config
             var transport = endpointConfiguration.UseTransport<SqlServerTransport>()
                                                     .ConnectionString(nserviceBusConfig.NServiceBusConnectionString);
 
-            transport.Routing().RouteToEndpoint(typeof(RequestAaplCsv), nserviceBusConfig.DestinationName);
+            transport.Routing().RouteToEndpoint(typeof(RequestStockCSV), nserviceBusConfig.DestinationName);
 
             endpointConfiguration.EnableInstallers();
 

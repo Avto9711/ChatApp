@@ -11,9 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatApp.Bl", "ChatApp.Bl\Ch
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatApp.Api", "ChatApp.Api\ChatApp.Api.csproj", "{4F058D80-7839-4B80-9916-F909D0ABE80C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatApp.Bus", "ChatApp.Bus\ChatApp.Bus.csproj", "{ACA04CBD-E222-4CD0-8879-12F4E8B9AEA6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatApp.Bot", "ChatApp.Bus\ChatApp.Bot.csproj", "{ACA04CBD-E222-4CD0-8879-12F4E8B9AEA6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatApp.Messages", "ChatApp.Messages\ChatApp.Messages.csproj", "{90349682-25A3-4C45-880F-A4A2D6A3F283}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatApp.BotCommands", "ChatApp.Messages\ChatApp.BotCommands.csproj", "{90349682-25A3-4C45-880F-A4A2D6A3F283}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatApp.Test", "ChatApp.Test\ChatApp.Test.csproj", "{F58B81B0-00C5-4A2D-A073-2EDEE5D65CEA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{90349682-25A3-4C45-880F-A4A2D6A3F283}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90349682-25A3-4C45-880F-A4A2D6A3F283}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90349682-25A3-4C45-880F-A4A2D6A3F283}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F58B81B0-00C5-4A2D-A073-2EDEE5D65CEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F58B81B0-00C5-4A2D-A073-2EDEE5D65CEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F58B81B0-00C5-4A2D-A073-2EDEE5D65CEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F58B81B0-00C5-4A2D-A073-2EDEE5D65CEA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

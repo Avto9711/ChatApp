@@ -22,6 +22,12 @@ namespace ChatApp.Bl.Services.ChatMessage
             _chatRoomRepo = uow.GetRepository<ChatRoom>();
             _uow = uow;
         }
+
+        public ChatRoomMessageResponseHubDto ProcessMessage(ChatRoomMessageHubDto message)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task SaveMessage(ChatRoomMessageHubDto message)
         {
             int chatRoomId = _chatRoomRepo

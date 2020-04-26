@@ -5,9 +5,11 @@ using System.Text;
 
 namespace ChatApp.Messages.Commands
 {
-    public class RequestAaplCsv : ICommand
+    public class ReponseStockCsv : ICommand
     {
         public string Id { get; set; }
         public string BotMessage { get; set; }
+        public string ChatRoomId { get; set; }
+
     }
 }

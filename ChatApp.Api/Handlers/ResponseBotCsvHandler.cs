@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace ChatApp.Api.Handlers
 {
-    public class ResponseAaplCsvHandler : IHandleMessages<ReponseAaplCsv>
+    public class ResponseBotCsvHandler : IHandleMessages<ReponseStockCsv>
     {
-        public Task Handle(ReponseAaplCsv message, IMessageHandlerContext context)
+        public Task Handle(ReponseStockCsv message, IMessageHandlerContext context)
         {
 
             return Task.CompletedTask;

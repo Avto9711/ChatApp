@@ -29,7 +29,7 @@ namespace ChatApp.Bus
 
 
         }
-    static IConfigurationRoot GetConfigurationRoot()
+       internal static IConfigurationRoot GetConfigurationRoot()
         {
             var builder = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
@@ -47,7 +47,7 @@ namespace ChatApp.Bus
 
             transport
                 .Routing()
-                .RouteToEndpoint(typeof(ReponseAaplCsv), "ChatAppApi");
+                .RouteToEndpoint(typeof(ReponseStockCsv), "ChatAppApi");
 
             endpointConfiguration.EnableInstallers();
             return endpointConfiguration;

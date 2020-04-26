@@ -25,7 +25,7 @@ namespace ChatApp.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<string>>> Get()
         {
-            await _bus.Send(new RequestAaplCsv { Id = Guid.NewGuid().ToString(), BotMessage = "asd" });
+            await _bus.Send(new RequestStockCSV { Id = Guid.NewGuid().ToString(), Stock = "asd" });
             return new string[] { "value1", "value2" };
         }
 
