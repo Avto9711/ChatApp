@@ -29,10 +29,10 @@ namespace ChatApp.Api.Services.Chat
             if (isBotCommand(hubMessage.Message))
             {
                 var command = hubMessage.Message.Split("=");
-                var param = command[1];
                 switch (command[0])
                 {
                     case BotCommands.StockCommand:
+                        var param = command[1];
                         await _bus.Send(new RequestStockCSV { Id = Guid.NewGuid().ToString(), Stock = param, ChatRoomId =  hubMessage.ChatRoomCode });
                         response.ChatRoomId = hubMessage.ChatRoomCode;
                         response.Sender = "bot";
@@ -41,7 +41,11 @@ namespace ChatApp.Api.Services.Chat
                         break;
 
                     default:
-                        Console.WriteLine("Handle unknow commands");
+                        Console.WriteLine("Handle unknow commands here");
+                        response.ChatRoomId = hubMessage.ChatRoomCode;
+                        response.Sender = "bot";
+                        response.Message = "Sorry I could not understand the command. :c";
+                        response.MessageDate = DateTime.Now;
                         break;
                 }
             }

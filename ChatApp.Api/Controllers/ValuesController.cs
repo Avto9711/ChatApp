@@ -17,13 +17,9 @@ namespace ChatApp.Api.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        private readonly IMapper _mapper;
-        private  IHubContext<ChatAppHub> _hubContext;
-        public ValuesController(IMapper mapper, IHubContext<ChatAppHub> hubContext)
+        public ValuesController()
         {
-            _mapper = mapper;
-            //_bus = bus;
-            _hubContext = hubContext;
+
         }
 
         // GET api/values
@@ -31,7 +27,6 @@ namespace ChatApp.Api.Controllers
         public async Task<ActionResult<IEnumerable<string>>> Get()
         {
 
-            //await _bus.Send(new RequestStockCSV { Id = Guid.NewGuid().ToString(), Stock = "asd" });
             return new string[] { "value1", "value2" };
         }
 
@@ -39,14 +34,6 @@ namespace ChatApp.Api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<string>> Get(int id)
         {
-            var messageHub = new ChatRoomMessageResponseHubDto();
-           // _hubContext = (IHubContext<ChatAppHub>)Dependency.ServiceProvider.GetService(typeof(IHubContext<ChatAppHub>));
-
-            messageHub.ChatRoomId = "asd";
-            messageHub.Sender = "asd";
-            messageHub.Message = "asd";
-            messageHub.MessageDate = DateTime.Now;
-            await _hubContext.Clients.Group("5bcefe2b-23f8-458f-a06c-efbdb6f63f56").SendAsync(HubConstants.ON_MSG_RECVD, messageHub);
             return "value";
         }
 

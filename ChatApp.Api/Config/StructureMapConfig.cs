@@ -11,7 +11,7 @@ namespace ChatApp.Api.Config
 {
     public static class StructureMapConfig
     {
-        public static IServiceProvider ConfigureIoC(this IServiceCollection services)
+        public static IServiceProvider ConfigureIoC(this IServiceCollection services, Action func = null)
         {
             IContainer container = DependencyService.Container;
             container.Configure(config =>
@@ -19,6 +19,7 @@ namespace ChatApp.Api.Config
                 config.Populate(services);
 
             });
+            func?.Invoke();
             return container.GetInstance<IServiceProvider>();
         }
     }

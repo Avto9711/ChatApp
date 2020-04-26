@@ -33,7 +33,7 @@ namespace ChatApp.Api.Controllers
             }
             else
             {
-                return BadRequest(new { Error= "Error logging" });
+                return BadRequest(new { Error= "Error during the login. Are your credentials correct?" });
             }
         }
     }

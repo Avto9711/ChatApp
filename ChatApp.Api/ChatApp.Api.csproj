@@ -14,6 +14,7 @@
     <PackageReference Include="NServiceBus" Version="7.2.4" />
     <PackageReference Include="NServiceBus.Extensions.DependencyInjection" Version="1.0.1" />
     <PackageReference Include="NServiceBus.MSDependencyInjection" Version="0.1.4" />
+    <PackageReference Include="NServiceBus.Persistence.Sql" Version="5.0.0" />
     <PackageReference Include="NServiceBus.StructureMap" Version="7.1.0" />
     <PackageReference Include="NServiceBus.Transport.SqlServer" Version="6.0.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="2.1.1" />

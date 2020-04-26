@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ChatApp.Model.Migrations
 {
     [DbContext(typeof(ChatAppDbContext))]
-    [Migration("20200425191453_AddingIdentityModels")]
-    partial class AddingIdentityModels
+    [Migration("20200426230251_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -49,21 +49,21 @@ namespace ChatApp.Model.Migrations
                         new
                         {
                             Id = 1,
-                            ChatRoomCode = "5bcefe2b-23f8-458f-a06c-efbdb6f63f56",
+                            ChatRoomCode = "238aab0d-db30-45d4-8fb3-71ba1ed334eb",
                             ChatRoomName = "Room Chat 1",
                             Deleted = false
                         },
                         new
                         {
                             Id = 2,
-                            ChatRoomCode = "7f95945c-dbb4-4dc2-907f-d65a290cd190",
+                            ChatRoomCode = "2ae76df0-b06b-4979-bfcc-aa989297ca7e",
                             ChatRoomName = "Room Chat 2",
                             Deleted = false
                         },
                         new
                         {
                             Id = 3,
-                            ChatRoomCode = "53bbf1cd-cf37-4f8f-94f2-686f41440597",
+                            ChatRoomCode = "b2c77bc5-054d-4fe4-a6e6-e58fbeb68ab3",
                             ChatRoomName = "Room Chat 3",
                             Deleted = false
                         });

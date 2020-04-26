@@ -4,10 +4,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ChatApp.Model.Migrations
 {
-    public partial class AddingIdentityModels : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -47,6 +48,44 @@ namespace ChatApp.Model.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ChatRooms",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Deleted = table.Column<bool>(nullable: false),
+                    CreatedDate = table.Column<DateTimeOffset>(nullable: true),
+                    UpdatedDate = table.Column<DateTimeOffset>(nullable: true),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    UpdatedBy = table.Column<string>(nullable: true),
+                    ChatRoomName = table.Column<string>(nullable: true),
+                    ChatRoomCode = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ChatRooms", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "KeyValues",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Deleted = table.Column<bool>(nullable: false),
+                    CreatedDate = table.Column<DateTimeOffset>(nullable: true),
+                    UpdatedDate = table.Column<DateTimeOffset>(nullable: true),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    UpdatedBy = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    Value = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_KeyValues", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -155,26 +194,47 @@ namespace ChatApp.Model.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.UpdateData(
-                table: "ChatRooms",
-                keyColumn: "Id",
-                keyValue: 1,
-                column: "ChatRoomCode",
-                value: "5bcefe2b-23f8-458f-a06c-efbdb6f63f56");
+            migrationBuilder.CreateTable(
+                name: "ChatRoomMessages",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Deleted = table.Column<bool>(nullable: false),
+                    CreatedDate = table.Column<DateTimeOffset>(nullable: true),
+                    UpdatedDate = table.Column<DateTimeOffset>(nullable: true),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    UpdatedBy = table.Column<string>(nullable: true),
+                    Message = table.Column<string>(nullable: true),
+                    MessageTime = table.Column<DateTime>(nullable: false),
+                    MessageFromUser = table.Column<string>(nullable: true),
+                    ChatRoomId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ChatRoomMessages", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ChatRoomMessages_ChatRooms_ChatRoomId",
+                        column: x => x.ChatRoomId,
+                        principalTable: "ChatRooms",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
 
-            migrationBuilder.UpdateData(
+            migrationBuilder.InsertData(
                 table: "ChatRooms",
-                keyColumn: "Id",
-                keyValue: 2,
-                column: "ChatRoomCode",
-                value: "7f95945c-dbb4-4dc2-907f-d65a290cd190");
+                columns: new[] { "Id", "ChatRoomCode", "ChatRoomName", "CreatedBy", "CreatedDate", "Deleted", "UpdatedBy", "UpdatedDate" },
+                values: new object[] { 1, "238aab0d-db30-45d4-8fb3-71ba1ed334eb", "Room Chat 1", null, null, false, null, null });
 
-            migrationBuilder.UpdateData(
+            migrationBuilder.InsertData(
                 table: "ChatRooms",
-                keyColumn: "Id",
-                keyValue: 3,
-                column: "ChatRoomCode",
-                value: "53bbf1cd-cf37-4f8f-94f2-686f41440597");
+                columns: new[] { "Id", "ChatRoomCode", "ChatRoomName", "CreatedBy", "CreatedDate", "Deleted", "UpdatedBy", "UpdatedDate" },
+                values: new object[] { 2, "2ae76df0-b06b-4979-bfcc-aa989297ca7e", "Room Chat 2", null, null, false, null, null });
+
+            migrationBuilder.InsertData(
+                table: "ChatRooms",
+                columns: new[] { "Id", "ChatRoomCode", "ChatRoomName", "CreatedBy", "CreatedDate", "Deleted", "UpdatedBy", "UpdatedDate" },
+                values: new object[] { 3, "b2c77bc5-054d-4fe4-a6e6-e58fbeb68ab3", "Room Chat 3", null, null, false, null, null });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -214,6 +274,11 @@ namespace ChatApp.Model.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ChatRoomMessages_ChatRoomId",
+                table: "ChatRoomMessages",
+                column: "ChatRoomId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -234,31 +299,19 @@ namespace ChatApp.Model.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "ChatRoomMessages");
+
+            migrationBuilder.DropTable(
+                name: "KeyValues");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
 
-            migrationBuilder.UpdateData(
-                table: "ChatRooms",
-                keyColumn: "Id",
-                keyValue: 1,
-                column: "ChatRoomCode",
-                value: "f1fd1f5b-a1df-4257-82c9-c305f46546a2");
-
-            migrationBuilder.UpdateData(
-                table: "ChatRooms",
-                keyColumn: "Id",
-                keyValue: 2,
-                column: "ChatRoomCode",
-                value: "0b729dc1-2b84-49b7-ad90-4f15cbaf09e1");
-
-            migrationBuilder.UpdateData(
-                table: "ChatRooms",
-                keyColumn: "Id",
-                keyValue: 3,
-                column: "ChatRoomCode",
-                value: "c13705b9-0518-479f-8caf-66bb576a7cdc");
+            migrationBuilder.DropTable(
+                name: "ChatRooms");
         }
     }
 }

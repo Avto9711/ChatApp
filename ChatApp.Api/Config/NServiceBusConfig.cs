@@ -7,9 +7,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NServiceBus;
 using NServiceBus.ObjectBuilder.MSDependencyInjection;
+using NServiceBus.Persistence.Sql;
 using StructureMap;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -29,11 +31,14 @@ namespace ChatApp.Api.Config
 
             endpointConfiguration.UseContainer<StructureMapBuilder>(customizations => customizations.ExistingContainer(DependencyService.Container));
 
-            services.AddSingleton<IMessageSession>(x => {
+            endpointConfiguration.EnableInstallers();
+
+            services.AddSingleton<IMessageSession>(x =>
+            {
                 return Endpoint.Start(endpointConfiguration)
                 .GetAwaiter()
                 .GetResult();
-               }
+            }
              );
         }
     }
