@@ -23,7 +23,6 @@ namespace ChatApp.Api.Handlers
         }
         public async Task Handle(ReponseStockCsv message, IMessageHandlerContext context)
         {
-            //var _hubClient = (IHubContext<ChatAppHub>)Dependency.ServiceProvider.GetService(typeof(IHubContext<ChatAppHub>));
             
             var response = new ChatRoomMessageResponseHubDto();
                 response.ChatRoomId = message.ChatRoomId;

@@ -33,7 +33,19 @@ namespace ChatApp.Api.Services.Chat
                 {
                     case BotCommands.StockCommand:
                         var param = command[1];
-                        await _bus.Send(new RequestStockCSV { Id = Guid.NewGuid().ToString(), Stock = param, ChatRoomId =  hubMessage.ChatRoomCode });
+                        try
+                        {
+                            await _bus.Send(new RequestStockCSV { Id = Guid.NewGuid().ToString(), Stock = param, ChatRoomId = hubMessage.ChatRoomCode });
+
+                        }
+                        catch (Exception ex)
+                        {
+                            response.ChatRoomId = hubMessage.ChatRoomCode;
+                            response.Sender = "bot";
+                            response.Message = "Ups, looks like my service is not running. Try again later :c";
+                            response.MessageDate = DateTime.Now;
+                            break;
+                        }
                         response.ChatRoomId = hubMessage.ChatRoomCode;
                         response.Sender = "bot";
                         response.Message = "Hello, In a moment you will receive the requested stock information.";
