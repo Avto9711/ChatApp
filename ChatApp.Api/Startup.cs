@@ -83,9 +83,10 @@ namespace ChatApp.Api
             services.AddDbContext<ChatAppDbContext>(op => op.UseSqlServer(myAppDbContextConnection), ServiceLifetime.Transient);
             #endregion
 
+            #region AddSerilog
             //Register Serilog from extension
             services.AddSerilog(Configuration);
-
+            #endregion
 
             #region Global Api Config
             services.AddMvc(o=> {
@@ -94,7 +95,7 @@ namespace ChatApp.Api
             })
                .AddControllersAsServices()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<KeyValueValidator>());
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<ChatRoomValidator>());
             #endregion
 
 
