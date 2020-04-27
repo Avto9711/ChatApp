@@ -6,11 +6,11 @@ This application  allow several users to talk in a chatroom and also to get stoc
 
 users:
 1. user 1
-  username: user1
-  password: P@$$w0rd36845
+  * username: user1
+  * password: P@$$w0rd36845
 2. user 1
-  username: user2
-  password: P@$$w0rd36845
+  * username: user2
+  * password: P@$$w0rd36845
 
 
 ##### Features
