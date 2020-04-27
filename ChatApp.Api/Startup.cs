@@ -186,7 +186,7 @@ namespace ChatApp.Api
             app.CreateUsers();
             app.NServiceBusCreateDbInstance();
 
-            app.UseSignalR(routes =>
+            app.UseSignalR(routes => 
             {
                 routes.MapHub<ChatAppHub>("/chatHub");
             });
