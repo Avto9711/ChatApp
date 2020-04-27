@@ -38,7 +38,7 @@ This application  allow several users to talk in a chatroom and also to get stoc
 * Install Nuget Packages.
 * Update ChatApp.Api and ChatApp.bus 'DefaultConnection' and 'NServiceBusConnectionString' to your local instance of SQL server. Note: Use the same Database in both connection string.
 
-* Set up ChatApp.Api as startup project and open 'Package Manager Console'. 
+* Set up ChatApp.Api as startup project and open 'Package Manager Console'. Put ChatApp.Model as Default Project within 'Package Manager Console'. 
 * Run 
 ``` bash
 Update-Database 
