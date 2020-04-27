@@ -49,6 +49,6 @@ Command to create the database.
 * Once database is created,  set ChatApp.Api and ChatApp.Bus as startup projects
 
 * In case you need, change the Clients URL in the ChatApp.Api appsetting.json if the client app has a different url (http://localhost:8080)
-* Run the App :smile:)
+* Run the App :smile:
 
 
