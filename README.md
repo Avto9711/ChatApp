@@ -26,8 +26,9 @@ This application  allow several users to talk in a chatroom and also to get stoc
 - [x] Handle messages that are not understood or any exceptions raised within the bot.
 
 ##### Technologies
-:radio_button: ASP Net Core
+:radio_button: ASP .Net Core
 :radio_button: SignalR
+:radio_button: ASP .Net Core Identity
 :radio_button: AutoMapper
 :radio_button: Serilog
 :radio_button: NService Bus (Like Rabbit MQ :rabbit:)
