@@ -29,7 +29,7 @@ namespace ChatApp.Api.Handlers
                 response.MessageDate = DateTime.Now;
                 response.Message = message.BotMessage;
 
-            await _hubContext.Clients.All
+            await _hubContext.Clients.Group(message.ChatRoomId)
                 .SendAsync(HubConstants.ON_MSG_RECVD, response);
         }
     }

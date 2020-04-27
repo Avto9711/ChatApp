@@ -4,6 +4,15 @@
 
 This application  allow several users to talk in a chatroom and also to get stock quotes from an API using a specific command.
 
+users:
+1. user 1
+  username: user1
+  password: P@$$w0rd36845
+2. user 1
+  username: user2
+  password: P@$$w0rd36845
+
+
 ##### Features
 
 - [x] Allow registered users to log in and talk with other users in a chatroom.
