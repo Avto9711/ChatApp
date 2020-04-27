@@ -38,10 +38,6 @@ namespace ChatApp.Bus.Handlers
                 using (var reader = new StreamReader(stream))
                 using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
                 {
-                        var lin = await response.Content.ReadAsStringAsync();
-                        //var x = stream;
-                        //var y = reader;
-                        //reader.Re
                         csv.Configuration.RegisterClassMap<StockCsvMap>();
                         csv.Configuration.Delimiter = ",";
                         var stock = csv.GetRecords<StockCsv>()
