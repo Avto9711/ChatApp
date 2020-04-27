@@ -47,21 +47,21 @@ namespace ChatApp.Model.Migrations
                         new
                         {
                             Id = 1,
-                            ChatRoomCode = "905b4cbc-d1ed-4a85-bbbb-7e0d55e3ac49",
+                            ChatRoomCode = "a2053db9-c0f8-4dd5-892b-2e7484eef71e",
                             ChatRoomName = "Room Chat 1",
                             Deleted = false
                         },
                         new
                         {
                             Id = 2,
-                            ChatRoomCode = "df687b07-cf0d-4de2-9604-fa1ca07d0ac2",
+                            ChatRoomCode = "995b24e0-33c3-4383-9177-710f7108f87f",
                             ChatRoomName = "Room Chat 2",
                             Deleted = false
                         },
                         new
                         {
                             Id = 3,
-                            ChatRoomCode = "c14a3594-85b7-4b48-8ef3-4f5e2d7dab8c",
+                            ChatRoomCode = "d34ca013-b4ae-4142-8ece-73c87ef8ef3b",
                             ChatRoomName = "Room Chat 3",
                             Deleted = false
                         });
@@ -96,31 +96,6 @@ namespace ChatApp.Model.Migrations
                     b.HasIndex("ChatRoomId");
 
                     b.ToTable("ChatRoomMessages");
-                });
-
-            modelBuilder.Entity("ChatApp.Model.Entities.KeyValue", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CreatedBy");
-
-                    b.Property<DateTimeOffset?>("CreatedDate");
-
-                    b.Property<bool>("Deleted");
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("UpdatedBy");
-
-                    b.Property<DateTimeOffset?>("UpdatedDate");
-
-                    b.Property<string>("Value");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("KeyValues");
                 });
 
             modelBuilder.Entity("ChatApp.Model.Entities.UserApplication", b =>

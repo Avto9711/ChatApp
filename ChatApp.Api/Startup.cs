@@ -158,9 +158,7 @@ namespace ChatApp.Api
             #region NServiceBus
              services.AddNServiceBus(Configuration);
             #endregion
-            return services.ConfigureIoC(()=> {
-                DependencyService.GetInstanceOf<IMessageSession>(); ;
-            });
+            return services.ConfigureIoC();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -186,6 +184,8 @@ namespace ChatApp.Api
             app.UseHttpsRedirection();
             app.UseCors("AllowAllPolicy");
             app.CreateUsers();
+            app.NServiceBusCreateDbInstance();
+
             app.UseSignalR(routes =>
             {
                 routes.MapHub<ChatAppHub>("/chatHub");

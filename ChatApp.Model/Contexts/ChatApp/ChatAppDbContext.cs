@@ -17,7 +17,6 @@ namespace ChatApp.Model.Contexts.ChatApp
         {
         }
         
-        public DbSet<KeyValue> KeyValues { get; set; }
         public DbSet<ChatRoom> ChatRooms { get; set; }
         public DbSet<ChatRoomMessage> ChatRoomMessages { get; set; }
 

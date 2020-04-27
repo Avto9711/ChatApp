@@ -1,7 +1,9 @@
-﻿using ChatApp.Model.Contexts.ChatApp;
+﻿using ChatApp.Api.Config;
+using ChatApp.Model.Contexts.ChatApp;
 using ChatApp.Model.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using NServiceBus;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +27,12 @@ namespace ChatApp.Api.Extensions
                 }
 
             }
+        }
+
+        public static void NServiceBusCreateDbInstance(this IApplicationBuilder app)
+        {
+            // Initiating instance to create db
+            DependencyService.GetInstanceOf<IMessageSession>();
         }
     }
 }
