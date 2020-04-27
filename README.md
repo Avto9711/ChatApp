@@ -26,12 +26,12 @@ This application  allow several users to talk in a chatroom and also to get stoc
 - [x] Handle messages that are not understood or any exceptions raised within the bot.
 
 ##### Technologies
-:radio_button: ASP .Net Core
-:radio_button: SignalR
-:radio_button: ASP .Net Core Identity
-:radio_button: AutoMapper
-:radio_button: Serilog
-:radio_button: NService Bus (Like Rabbit MQ :rabbit:)
+* :radio_button: ASP .Net Core
+* :radio_button: SignalR
+* :radio_button: ASP .Net Core Identity
+* :radio_button: AutoMapper
+* :radio_button: Serilog
+* :radio_button: NService Bus (Like Rabbit MQ :rabbit:)
 
 
 ## Installation
@@ -49,6 +49,6 @@ Command to create the database.
 * Once database is created,  set ChatApp.Api and ChatApp.Bus as startup projects
 
 * In case you need, change the Clients URL in the ChatApp.Api appsetting.json if the client app has a different url (http://localhost:8080)
-* Run the App :)
+* Run the App :smile:)
 
 
