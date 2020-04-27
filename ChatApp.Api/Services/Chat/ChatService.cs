@@ -40,24 +40,15 @@ namespace ChatApp.Api.Services.Chat
                         }
                         catch (Exception ex)
                         {
-                            response.ChatRoomId = hubMessage.ChatRoomCode;
-                            response.Sender = "bot";
-                            response.Message = "Ups, looks like my service is not running. Try again later :c";
-                            response.MessageDate = DateTime.Now;
+                            response = CreateBotMessage(hubMessage.ChatRoomCode, "Ups, looks like my service is not running. Try again later :c");
                             break;
                         }
-                        response.ChatRoomId = hubMessage.ChatRoomCode;
-                        response.Sender = "bot";
-                        response.Message = "Hello, In a moment you will receive the requested stock information.";
-                        response.MessageDate = DateTime.Now;
+                        response = CreateBotMessage(hubMessage.ChatRoomCode, "Hello, In a moment you will receive the requested stock information.");
                         break;
 
                     default:
                         Console.WriteLine("Handle unknow commands here");
-                        response.ChatRoomId = hubMessage.ChatRoomCode;
-                        response.Sender = "bot";
-                        response.Message = "Sorry I could not understand the command. :c";
-                        response.MessageDate = DateTime.Now;
+                        response = CreateBotMessage(hubMessage.ChatRoomCode, "Sorry I could not understand the command. :c");
                         break;
                 }
             }
@@ -72,6 +63,17 @@ namespace ChatApp.Api.Services.Chat
             }
 
             return response;
+        }
+
+        public ChatRoomMessageResponseHubDto CreateBotMessage(string chatRoomCode, string message)
+        {
+            return new ChatRoomMessageResponseHubDto
+            {
+                ChatRoomId = chatRoomCode,
+                Sender = "bot",
+                Message = message,
+                MessageDate = DateTime.Now
+            };
         }
 
         private bool isBotCommand(string message)

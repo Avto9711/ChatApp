@@ -15,8 +15,7 @@ namespace ChatApp.Api.Handlers
     public class ResponseBotCsvHandler : IHandleMessages<ReponseStockCsv>
     {
         private readonly IHubContext<ChatAppHub> _hubContext;
-        //private readonly IChatService  _hubContext;
-        //IHubContext hub = GlobalHost.ConnectionManager.GetHubContext<ChatAppHub>();
+
         public ResponseBotCsvHandler(IHubContext<ChatAppHub> hubContext) 
         {
             _hubContext = hubContext;
